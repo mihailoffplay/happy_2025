@@ -6,7 +6,7 @@
     <title>Квест: Поиск подарков на день рождения</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             background-color: #ffecf5;
             background-image: 
                 repeating-linear-gradient(45deg, #ffc6e5 0px, #ffc6e5 10px, #ffecf5 10px, #ffecf5 20px);
@@ -271,6 +271,40 @@
             margin: 20px 0;
         }
         
+        /* Стили для управления музыкой */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        
+        .music-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff80bf;
+            color: white;
+        }
+        
+        .volume-slider {
+            width: 80px;
+        }
+        
         .progress {
             display: flex;
             justify-content: center;
@@ -306,10 +340,33 @@
             .meme-cat {
                 max-width: 200px;
             }
+            
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+            
+            .music-btn {
+                font-size: 1.2em;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .volume-slider {
+                width: 60px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Элементы управления музыкой -->
+    <div class="music-controls">
+        <button class="music-btn" id="playBtn">▶️</button>
+        <button class="music-btn" id="pauseBtn">⏸️</button>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+    </div>
+
     <div class="container">
         <!-- Страница 1: Приветствие -->
         <div class="page active" id="page1">
@@ -338,8 +395,7 @@
                 <p>Туда выходят подышать,<br> 
                    Цветы и стулья там хранят.<br>
                    Оттуда видно всё вокруг,<br>
-                   Что это? Думай, моя Бусинка!
-                    Даже я сам не знаю, что это 😱</p>
+                   Что это? Думай, моя подруга!</p>
             </div>
             
             <div class="answer-form">
@@ -474,8 +530,8 @@
         <div class="page" id="page8">
             <h1>🎉 Поздравляем! 🎉</h1>
             <div class="completed">
-                <p>Ты нашла все три подарка! Ты УМНИЧКА!</p>
-                <p>С днём рождения! Желаю тебе всего самого наилучшего! Урааааа! Фииииии 🎂🥳</p>
+                <p>Ты нашла все три подарка! Ты Умничка!</p>
+                <p>С днём рождения Бусинка Слааадкаая! Желаем тебе всего самого наилучшего! 🎂🥳</p>
             </div>
             
             <div class="cat-container">
@@ -491,7 +547,8 @@
             <button class="restart" onclick="restartGame()">Начать заново</button>
         </div>
     </div>
-     <!-- Аудио элемент -->
+
+    <!-- Аудио элемент -->
     <audio id="backgroundMusic" loop>
         <source src="https://github.com/mihailoffplay/happy_2025/blob/main/Happy_Birthday_2025.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
@@ -504,7 +561,7 @@
             2: "угловой шкаф", 
             3: "роутер"
         };
-
+        
         // Элементы управления музыкой
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playBtn = document.getElementById('playBtn');
