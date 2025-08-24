@@ -6,18 +6,34 @@
     <title>Квест: Поиск подарков на день рождения</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', sans-serif;
-            background-color: #ffecf5;
-            background-image: 
-                repeating-linear-gradient(45deg, #ffc6e5 0px, #ffc6e5 10px, #ffecf5 10px, #ffecf5 20px);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(to bottom, #0a0a2a, #1a1a4a, #2a2a6a);
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            color: #d3397a;
+            color: #fff;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Звездный фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 5px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            z-index: -1;
         }
         
         .container {
@@ -31,6 +47,7 @@
             border: 3px dashed #ff4da6;
             position: relative;
             z-index: 2;
+            color: #d3397a;
         }
         
         h1 {
@@ -78,6 +95,13 @@
         .gift.found {
             background-color: #ff4da6;
             transform: scale(1.1);
+            animation: giftPulse 1s infinite;
+        }
+        
+        @keyframes giftPulse {
+            0% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1.1); }
         }
         
         .gift.found::after {
@@ -124,35 +148,39 @@
         .submit-button {
             margin-top: 15px;
             padding: 12px 24px;
-            background-color: #ff80bf;
+            background: linear-gradient(to bottom, #ff80bf, #ff4da6);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(180, 0, 84, 0.3);
         }
         
         .submit-button:hover {
-            background-color: #ff4da6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(180, 0, 84, 0.4);
         }
         
         .next-button {
             margin-top: 20px;
             padding: 12px 24px;
-            background-color: #4dd0e1;
+            background: linear-gradient(to bottom, #4dd0e1, #00bcd4);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 120, 140, 0.3);
         }
         
         .next-button:hover {
-            background-color: #00bcd4;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 120, 140, 0.4);
         }
         
         .message {
@@ -176,32 +204,6 @@
             padding: 15px;
             border-radius: 15px;
             margin: 20px 0;
-        }
-        
-        .balloon {
-            position: fixed;
-            width: 40px;
-            height: 60px;
-            background: #ff4da6;
-            border-radius: 50%;
-            animation: float 15s infinite;
-            z-index: 1;
-        }
-        
-        .balloon::before {
-            content: "";
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            width: 2px;
-            height: 20px;
-            background: #ffc6e5;
-            transform: translateX(-50%);
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) translateX(0); }
-            100% { transform: translateY(-100px) translateX(calc((var(--x) - 50) * 1vw)); }
         }
         
         .confetti {
@@ -228,33 +230,20 @@
         .restart {
             margin-top: 20px;
             padding: 12px 24px;
-            background-color: #ff4da6;
+            background: linear-gradient(to bottom, #ff4da6, #d3397a);
             color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-size: 1.1em;
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(180, 0, 84, 0.3);
         }
         
         .restart:hover {
-            background-color: #d3397a;
-        }
-        
-        /* Стили для котиков */
-        .cat {
-            position: fixed;
-            font-size: 2.5em;
-            z-index: 1;
-            animation: cat-walk 20s linear infinite;
-            bottom: 0;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        @keyframes cat-walk {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(180, 0, 84, 0.4);
         }
         
         /* Стили для мемных котиков */
@@ -276,7 +265,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 10px;
             border-radius: 50px;
             display: flex;
@@ -297,7 +286,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #ff80bf;
+            background: linear-gradient(to bottom, #ff80bf, #ff4da6);
             color: white;
         }
         
@@ -317,12 +306,127 @@
             border-radius: 50%;
             background-color: #ffc6e5;
             margin: 0 10px;
+            position: relative;
         }
         
         .progress-step.active {
             background-color: #ff4da6;
+            box-shadow: 0 0 10px #ff4da6;
         }
-
+        
+        /* Анимация салюта */
+        .firework {
+            position: fixed;
+            z-index: 1;
+        }
+        
+        .explosion {
+            position: absolute;
+            left: -2px;
+            bottom: 0;
+            width: 4px;
+            height: 80px;
+            transform-origin: 50% 100%;
+            overflow: hidden;
+        }
+        
+        .explosion:nth-child(1) {
+            transform: rotate(0deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(2) {
+            transform: rotate(30deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(3) {
+            transform: rotate(60deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(4) {
+            transform: rotate(90deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(5) {
+            transform: rotate(120deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(6) {
+            transform: rotate(150deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(7) {
+            transform: rotate(180deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(8) {
+            transform: rotate(210deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(9) {
+            transform: rotate(240deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(10) {
+            transform: rotate(270deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(11) {
+            transform: rotate(300deg) translateY(-15px);
+        }
+        
+        .explosion:nth-child(12) {
+            transform: rotate(330deg) translateY(-15px);
+        }
+        
+        .explosion::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 40px;
+            background-color: #f5cf52;
+        }
+        
+        @keyframes explosion {
+            0% {
+                top: 100%;
+            }
+            33%, 100% {
+                top: -50%;
+            }
+        }
+        
+        #firework1 {
+            left: 50%;
+            top: 50%;
+            transform: scale(1);
+        }
+        
+        #firework2 {
+            left: 30%;
+            top: 30%;
+            transform: scale(0.7);
+        }
+        
+        #firework3 {
+            left: 70%;
+            top: 60%;
+            transform: scale(0.5);
+        }
+        
+        #firework4 {
+            left: 10%;
+            top: 40%;
+            transform: scale(1.2);
+        }
+        
+        #firework5 {
+            left: 85%;
+            top: 15%;
+            transform: scale(0.6);
+        }
+        
         /* Адаптивность для мобильных устройств */
         @media (max-width: 500px) {
             .container {
@@ -367,6 +471,13 @@
         <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
     </div>
 
+    <!-- Салюты -->
+    <div class="firework" id="firework1"></div>
+    <div class="firework" id="firework2"></div>
+    <div class="firework" id="firework3"></div>
+    <div class="firework" id="firework4"></div>
+    <div class="firework" id="firework5"></div>
+
     <div class="container">
         <!-- Страница 1: Приветствие -->
         <div class="page active" id="page1">
@@ -375,7 +486,7 @@
             <p>Разгадай загадки, узнай, где искать подарки, и получи свои сюрпризы!</p>
             
             <div class="cat-container">
-                <img src="https://i.pinimg.com/736x/07/7b/d1/077bd17658ce52247a2b7a0146a71bd4.jpg" alt="Приветственный котик" class="meme-cat">
+                <img src="https://i1.sndcdn.com/artworks-PEfxf9BQSoPnZg0q-o3L3Jw-t500x500.jpg" alt="Приветственный котик" class="meme-cat">
             </div>
             
             <div class="gift">🎁</div>
@@ -530,12 +641,12 @@
         <div class="page" id="page8">
             <h1>🎉 Поздравляем! 🎉</h1>
             <div class="completed">
-                <p>Ты нашла все три подарка! Ты Умничка!</p>
-                <p>С днём рождения Бусинка Слааадкаая! Желаем тебе всего самого наилучшего! 🎂🥳</p>
+                <p>Ты нашла все три подарка! Ты УМНИЧКА!</p>
+                <p>С днём рождения! Желаю тебе всего самого наилучшего! Фииии! 🎂🥳</p>
             </div>
             
             <div class="cat-container">
-                <img src="https://i.pinimg.com/originals/1a/b2/b5/1ab2b51af3a51f968ad24ceb4757d44f.jpg" alt="Праздничный котик" class="meme-cat">
+                <img src="ttps://i.pinimg.com/originals/1a/b2/b5/1ab2b51af3a51f968ad24ceb4757d44f.jpg" alt="Праздничный котик" class="meme-cat">
             </div>
             
             <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
@@ -549,9 +660,8 @@
     </div>
 
     <!-- Аудио элемент -->
-    
     <audio id="backgroundMusic" loop>
-        <source src="Happy_Birthday_2025.mp3" autostart="true" hidden="false" loop="true" type="audio/mpeg">
+        <source src="Happy_Birthday_2025.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
     </audio>
 
@@ -588,6 +698,9 @@
                     playMusic();
                 }
             }, { once: true });
+            
+            // Запускаем салюты
+            startFireworks();
         });
         
         // Управление музыкой
@@ -603,6 +716,49 @@
             backgroundMusic.volume = this.value / 100;
         });
         
+        // Функция для создания салютов
+        function startFireworks() {
+            const fireworks = document.querySelectorAll('.firework');
+            
+            fireworks.forEach(firework => {
+                setInterval(() => {
+                    createExplosion(firework);
+                }, Math.random() * 1500 + 1000);
+            });
+        }
+        
+        function createExplosion(firework) {
+            // Очищаем предыдущий салют
+            firework.innerHTML = '';
+            
+            // Случайный цвет салюта
+            const colors = ['#ff4da6', '#4dd0e1', '#ffeb3b', '#4caf50', '#ff9800', '#9c27b0'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Создаем взрыв
+            for (let i = 0; i < 12; i++) {
+                const explosion = document.createElement('div');
+                explosion.className = 'explosion';
+                
+                const before = document.createElement('div');
+                before.style.position = 'absolute';
+                before.style.left = '0';
+                before.style.right = '0';
+                before.style.top = '100%';
+                before.style.height = '40px';
+                before.style.backgroundColor = color;
+                before.style.animation = `explosion ${Math.random() * 1 + 1}s ease-in-out forwards`;
+                before.style.animationDelay = `${Math.random() * 0.5}s`;
+                
+                explosion.appendChild(before);
+                firework.appendChild(explosion);
+            }
+            
+            // Перемещаем салют в случайное положение
+            firework.style.left = `${Math.random() * 90 + 5}%`;
+            firework.style.top = `${Math.random() * 80 + 10}%`;
+        }
+        
         // Показать страницу
         function showPage(pageNumber) {
             document.querySelectorAll('.page').forEach(page => {
@@ -616,6 +772,21 @@
             // Запуск анимации для страниц с подарками
             if (pageNumber === 3 || pageNumber === 5 || pageNumber === 7 || pageNumber === 8) {
                 createConfetti();
+                
+                // Добавляем дополнительные салюты при нахождении подарков
+                if (pageNumber === 8) {
+                    // На финальной странице больше салютов
+                    for (let i = 0; i < 10; i++) {
+                        setTimeout(() => {
+                            const randomFirework = document.querySelectorAll('.firework')[Math.floor(Math.random() * 5)];
+                            createExplosion(randomFirework);
+                        }, i * 300);
+                    }
+                } else {
+                    // На страницах с подарками по одному дополнительному салюту
+                    const randomFirework = document.querySelectorAll('.firework')[Math.floor(Math.random() * 5)];
+                    createExplosion(randomFirework);
+                }
             }
         }
         
@@ -629,6 +800,10 @@
                 messageElement.textContent = "Верно! Ты отгадала!";
                 messageElement.style.backgroundColor = '#c8f7c5';
                 messageElement.style.display = 'block';
+                
+                // Запускаем небольшой салют при правильном ответе
+                const randomFirework = document.querySelectorAll('.firework')[Math.floor(Math.random() * 5)];
+                createExplosion(randomFirework);
                 
                 // Переход к странице с подарком
                 setTimeout(() => {
@@ -680,7 +855,7 @@
         }
         
         function getRandomColor() {
-            const colors = ['#ff4da6', '#ff80bf', '#ffc6e5', '#d3397a', '#ffacd3'];
+            const colors = ['#ff4da6', '#ff80bf', '#ffc6e5', '#d3397a', '#ffacd3', '#4dd0e1', '#ffeb3b', '#4caf50'];
             return colors[Math.floor(Math.random() * colors.length)];
         }
         
@@ -693,19 +868,6 @@
                 }
             });
         });
-        
-        // Запускаем создание шариков при загрузке страницы
-        window.onload = function() {
-            for (let i = 0; i < 10; i++) {
-                const balloon = document.createElement('div');
-                balloon.classList.add('balloon');
-                balloon.style.left = Math.random() * 100 + 'vw';
-                balloon.style.setProperty('--x', Math.random() * 100);
-                balloon.style.backgroundColor = getRandomColor();
-                balloon.style.animationDelay = Math.random() * 15 + 's';
-                document.body.appendChild(balloon);
-            }
-        };
     </script>
 </body>
 </html>
